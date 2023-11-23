@@ -4,17 +4,29 @@ using System.Xml.Linq;
 
 string path = @"C:\Proj\FlashDrive.xml";
 
-//XDocument doc = XDocument.Load();
+XDocument doc = XDocument.Load(path);
+string Name = "";
+var namesList = doc.Descendants("tSTRING").Select(s => (string)s.Attribute("DcTrustedDeviceComment"));
 
-XmlDocument xml = new();
-xml.Load(path);
+Console.WriteLine(namesList.Count());
 
-var xList = xml.SelectNodes("/propertiesmap/key/tSTRING[@name='DcTrustedDeviceComment']");
-
-foreach (XmlNode x in xList)
+foreach (var node in namesList)
 {
-    Console.WriteLine(x.InnerText);
+    Console.WriteLine(node);
 }
+
+
+#region XML
+//XmlDocument xml = new();
+//xml.Load(path);
+
+//var xList = xml.SelectNodes("/propertiesmap/key/tSTRING[@name='DcTrustedDeviceComment']");
+
+//foreach (XmlNode x in xList)
+//{
+//    Console.WriteLine(x.InnerText);
+//} 
+#endregion
 
 // See https://aka.ms/new-console-template for more information
 //Console.WriteLine(doc);
